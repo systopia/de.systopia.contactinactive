@@ -23,15 +23,15 @@
     {if $singleContact}
       Are you sure you want to set this contact to inactive?
   </div>
-  <div>All privacy options will be set and "{$activityTypeNames}" activities will be set to "Cancelled".</div>
+  <div>All privacy options will be set
+    {if !empty($activityTypeNames)}and activity types "{$activityTypeNames}" will be set to "Cancelled".{/if}</div>
     {else}
       Are you sure you want to set the selected contact(s) to inactive?
   </div>
-  <div>All privacy options will be set and "{$activityTypeNames}" activities will be set to "Cancelled" for the selected contact(s).</div>
+  <div>All privacy options will be set
+    {if !empty($activityTypeNames)}and activity types "{$activityTypeNames}" will be set to "Cancelled" {/if}for the selected contact(s).</div>
     {/if}
 </div>
-
-
 
 {if !$singleContact}
 <table class="form-layout">

@@ -69,6 +69,13 @@ function contactinactive_civicrm_uninstall() {
  */
 function contactinactive_civicrm_enable() {
   _contactinactive_civix_civicrm_enable();
+
+  // Set default settings
+  $settings = CRM_Contactinactive_Utils::getSettings();
+  if (!$settings) $settings = array();
+  if (!$settings['activityTypeNames']) {
+    CRM_Contactinactive_Utils::setSetting('Phone Call', 'activityTypeNames');
+  }
 }
 
 /**

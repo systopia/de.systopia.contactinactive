@@ -22,12 +22,21 @@
  */
 class CRM_Contactinactive_Form_Set extends CRM_Contact_Form_Task {
 
-  protected $_activityTypeNames = array('Phone Call');
+  protected $_settings;
+  protected $_activityTypeNames = array();
 
   public function preProcess() {
     parent::preProcess();
-    // Assign activity names so we can display confirmation to user.
-    $this->assign('activityTypeNames', implode(', ', $this->_activityTypeNames));
+
+    // Needs to be here as from is build before default values are set
+    $this->_settings = CRM_Contactinactive_Utils::getSettings();
+    if (!$this->_settings) $this->_settings = array();
+    if (!empty($this->_settings['activityTypeNames'])) {
+      // Assign activity names so we can display confirmation to user.
+      $this->_activityTypeNames = explode(',', $this->_settings['activityTypeNames']);
+      $this->assign('activityTypeNames', implode(', ', $this->_activityTypeNames));
+    }
+
     if (empty($this->_contactIds)) {
       // For the case of single contact (contact action)
       $this->contactId = CRM_Utils_Request::retrieve('cid', 'Positive', $this);
