@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<menu>
+  <item>
+    <path>civicrm/contact/setinactive</path>
+    <page_callback>CRM_Contactinactive_Form_Set</page_callback>
+    <title>Set</title>
+    <access_arguments>access CiviCRM</access_arguments>
+  </item>
+</menu>

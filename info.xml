@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<extension key="de.systopia.contactinactive" type="module">
+  <file>contactinactive</file>
+  <name>Contact Inactive</name>
+  <description>Adds a contact action "Set to Inactive" which enables all privacy options and cancels activities of type "Phone Call"</description>
+  <license>AGPL-3.0</license>
+  <maintainer>
+    <author>Matthew Wire</author>
+    <email>mjw@mjwconsult.co.uk</email>
+  </maintainer>
+  <urls>
+    <url desc="Main Extension Page">https://github.com/mattwire/de.systopia.contactinactive</url>
+    <url desc="Licensing">http://www.gnu.org/licenses/agpl-3.0.html</url>
+  </urls>
+  <releaseDate>2017-06-19</releaseDate>
+  <version>0.1</version>
+  <develStage>dev</develStage>
+  <compatibility>
+    <ver>4.6</ver>
+    <ver>4.7</ver>
+  </compatibility>
+  <comments></comments>
+  <civix>
+    <namespace>CRM/Contactinactive</namespace>
+  </civix>
+</extension>
