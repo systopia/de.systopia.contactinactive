@@ -17,15 +17,27 @@
 {include file="CRM/common/formButtons.tpl" location="top"}
 </div>
 
-<div class="messages status no-popup">
-  <div class="icon inform-icon"></div>&nbsp;
-  Are you sure you want to set the selected contact(s) to inactive?
-  All privacy options will be set and CallCenter activities Cancelled for the selected contact(s).
+<div class="crm-content">
+  <div class="messages status no-popup">
+    <i class="crm-i fa-exclamation-triangle"></i>&nbsp;
+    {if $singleContact}
+      Are you sure you want to set this contact to inactive?
+  </div>
+  <div>All privacy options will be set and "{$activityTypeNames}" activities will be set to "Cancelled".</div>
+    {else}
+      Are you sure you want to set the selected contact(s) to inactive?
+  </div>
+  <div>All privacy options will be set and "{$activityTypeNames}" activities will be set to "Cancelled" for the selected contact(s).</div>
+    {/if}
 </div>
 
+
+
+{if !$singleContact}
 <table class="form-layout">
   <tr><td>{include file="CRM/Contact/Form/Task.tpl"}</td></tr>
 </table>
+{/if}
 <div class="crm-submit-buttons">
 {include file="CRM/common/formButtons.tpl" location="bottom"}
 </div>

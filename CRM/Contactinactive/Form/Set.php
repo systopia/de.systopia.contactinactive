@@ -22,9 +22,23 @@
  */
 class CRM_Contactinactive_Form_Set extends CRM_Contact_Form_Task {
 
+  protected $_activityTypeNames = array('Phone Call');
+
   public function preProcess() {
-    CRM_Utils_System::setTitle(ts('Set Contact(s) to Inactive'));
     parent::preProcess();
+    // Assign activity names so we can display confirmation to user.
+    $this->assign('activityTypeNames', implode(', ', $this->_activityTypeNames));
+    if (empty($this->_contactIds)) {
+      // For the case of single contact (contact action)
+      $this->contactId = CRM_Utils_Request::retrieve('cid', 'Positive', $this);
+      $this->_contactIds[] = $this->contactId; // So we can share the postProcess
+      CRM_Utils_System::setTitle(ts('Set Contact to Inactive'));
+      $this->assign('singleContact', 1);
+    }
+    else {
+      // For the multiple contact (searchTask)
+      CRM_Utils_System::setTitle(ts('Set Contact(s) to Inactive'));
+    }
   }
 
   public function buildQuickForm() {
@@ -36,7 +50,9 @@ class CRM_Contactinactive_Form_Set extends CRM_Contact_Form_Task {
       // Set all privacy options
       $this->setPrivacyOptions($contactId);
       // Cancel activities of type
-      $this->cancelActivities($contactId, 'Phone Call');
+      foreach ($this->_activityTypeNames as $activityTypeName) {
+        $this->cancelActivities($contactId, $activityTypeName);
+      }
     }
     parent::postProcess();
   }
