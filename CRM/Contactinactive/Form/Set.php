@@ -1,5 +1,4 @@
 <?php
-
 /*-------------------------------------------------------+
 | SYSTOPIA - Contact Inactive                            |
 | Copyright (C) 2017 SYSTOPIA                            |
@@ -91,11 +90,11 @@ class CRM_Contactinactive_Form_Set extends CRM_Contact_Form_Task {
     $cancelledActivityStatus = CRM_Core_PseudoConstant::getKey('CRM_Activity_BAO_Activity', 'activity_status_id', 'Cancelled');
 
     $sql = "
-UPDATE `civicrm_activity_contact` contact 
-LEFT JOIN `civicrm_activity` activity 
-ON contact.activity_id = activity.id 
-SET activity.status_id = {$cancelledActivityStatus} 
-WHERE activity_type_id = {$callCenterActivityId} 
+UPDATE `civicrm_activity_contact` contact
+LEFT JOIN `civicrm_activity` activity
+ON contact.activity_id = activity.id
+SET activity.status_id = {$cancelledActivityStatus}
+WHERE activity_type_id = {$callCenterActivityId}
   AND contact_id = {$contactId}
     ";
     CRM_Core_DAO::executeQuery($sql);

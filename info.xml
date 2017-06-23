@@ -9,11 +9,11 @@
     <email>mjw@mjwconsult.co.uk</email>
   </maintainer>
   <urls>
-    <url desc="Main Extension Page">https://github.com/mattwire/de.systopia.contactinactive</url>
+    <url desc="Main Extension Page">https://github.com/systopia/de.systopia.contactinactive</url>
     <url desc="Licensing">http://www.gnu.org/licenses/agpl-3.0.html</url>
   </urls>
   <releaseDate>2017-06-19</releaseDate>
-  <version>0.1</version>
+  <version>0.1.dev</version>
   <develStage>dev</develStage>
   <compatibility>
     <ver>4.6</ver>
