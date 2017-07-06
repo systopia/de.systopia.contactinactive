@@ -15,16 +15,16 @@
 +--------------------------------------------------------*/
 
 class CRM_Contactinactive_Utils {
-  CONST CONTACTINACTIVE_PREFERENCES_NAME = 'ContactInactive Preferences';
+  CONST PREFERENCES_NAME = 'ContactInactive Preferences';
 
   /**
    * Returns settings
    */
   static function getSettings($name = NULL) {
-    return CRM_Core_BAO_Setting::getItem(CRM_Contactinactive_Utils::CONTACTINACTIVE_PREFERENCES_NAME, $name);
+    return CRM_Core_BAO_Setting::getItem(self::PREFERENCES_NAME, $name);
   }
 
   static function setSetting($value, $name) {
-    CRM_Core_BAO_Setting::setItem($value, CRM_Contactinactive_Utils::CONTACTINACTIVE_PREFERENCES_NAME, $name);
+    CRM_Core_BAO_Setting::setItem($value, self::PREFERENCES_NAME, $name);
   }
 }
