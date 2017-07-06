@@ -145,15 +145,14 @@ function contactinactive_civicrm_alterSettingsFolders(&$metaDataFolders = NULL) 
 }
 
 function contactinactive_civicrm_summaryActions(&$actions, $contactId){
-
     $actions['contactinactive'] = [
       'title' => 'Set to Inactive',
       'weight' => 999,
       'ref' => 'contact-inactive',
       'key' => 'contact-inactive',
       'href' => CRM_Utils_System::url('civicrm/contact/setinactive', "cid=$contactId"),
+      'tab' => 'summary',
     ];
-
 }
 
 function contactinactive_civicrm_searchTasks( $objectName, &$tasks ){

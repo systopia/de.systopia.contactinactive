@@ -14,30 +14,41 @@
 +-------------------------------------------------------*}
 
 <div class="crm-submit-buttons">
-{include file="CRM/common/formButtons.tpl" location="top"}
+  {include file="CRM/common/formButtons.tpl" location="top"}
 </div>
 
 <div class="crm-content">
   <div class="messages status no-popup">
     <i class="crm-i fa-exclamation-triangle"></i>&nbsp;
     {if $singleContact}
-      Are you sure you want to set this contact to inactive?
+    Are you sure you want to set this contact to inactive?
   </div>
   <div>All privacy options will be set
     {if !empty($activityTypeNames)}and activity types "{$activityTypeNames}" will be set to "Cancelled".{/if}</div>
-    {else}
-      Are you sure you want to set the selected contact(s) to inactive?
-  </div>
+  {else}
+  Are you sure you want to set the selected contact(s) to inactive?
+</div>
   <div>All privacy options will be set
     {if !empty($activityTypeNames)}and activity types "{$activityTypeNames}" will be set to "Cancelled" {/if}for the selected contact(s).</div>
-    {/if}
+{/if}
 </div>
 
 {if !$singleContact}
-<table class="form-layout">
-  <tr><td>{include file="CRM/Contact/Form/Task.tpl"}</td></tr>
-</table>
+  <table class="form-layout">
+    <tr><td>{include file="CRM/Contact/Form/Task.tpl"}</td></tr>
+  </table>
 {/if}
 <div class="crm-submit-buttons">
-{include file="CRM/common/formButtons.tpl" location="bottom"}
+  {include file="CRM/common/formButtons.tpl" location="bottom"}
 </div>
+
+{literal}
+  <script type="text/javascript">
+      CRM.$(function($) {
+          // Refresh the contact summary (No other method seems to work properly (eg.CRM.tabHeader.resetTab('#tab_summary') does not display correctly)
+          $('#crm-main-content-wrapper').on('crmPopupFormSuccess', function() {
+              window.location.reload();
+          });
+      });
+  </script>
+{/literal}
