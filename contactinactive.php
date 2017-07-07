@@ -72,8 +72,8 @@ function contactinactive_civicrm_enable() {
 
   // Set default settings
   $settings = CRM_Contactinactive_Utils::getSettings();
-  if (!$settings) $settings = array();
-  if (!$settings['activityTypeNames']) {
+  if (!isset($settings)) $settings = array();
+  if (!isset($settings['activityTypeNames'])) {
     CRM_Contactinactive_Utils::setSetting('Phone Call', 'activityTypeNames');
   }
 }
