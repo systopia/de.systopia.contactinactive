@@ -19,11 +19,12 @@
  * Set contact to inactive
  */
 function civicrm_api3_contact_setinactive($params) {
+  // We assume $params['contact_id'] is defined as is it is marked as required in the spec
+  // Set the contact to inactive
+  CRM_Contactinactive_Set::setInactive($params['contact_id']);
 
-  // TODO: Matthew: please implement
-
-  return civicrm_api3_create_error("Not yet implemented");
-  // TODO: once it works: return civicrm_api3_create_success();
+  $values[$params['contact_id']] = array();
+  return civicrm_api3_create_success($values,$params,'Contact','setinactive');
 }
 
 /**

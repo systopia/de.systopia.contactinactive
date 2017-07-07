@@ -27,4 +27,20 @@ class CRM_Contactinactive_Utils {
   static function setSetting($value, $name) {
     CRM_Core_BAO_Setting::setItem($value, self::PREFERENCES_NAME, $name);
   }
+
+  /**
+   * Get array of activityTypeNames
+   * @return array
+   */
+  static function getActivityTypeNames() {
+    // Get list of activity types
+    $settings = CRM_Contactinactive_Utils::getSettings();
+    if (!empty($settings['activityTypeNames'])) {
+      // Assign activity names to an array
+      $activityTypeNames = explode(',', $settings['activityTypeNames']);
+      return $activityTypeNames;
+    }
+    // If not types specified, return empty array
+    return array();
+  }
 }

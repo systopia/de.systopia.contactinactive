@@ -7,3 +7,6 @@ The list of activity types that should be cancelled are specified using the sett
 ```ContactInactive Preferences:activityTypeNames```
 
 Default value is "Phone Call".
+
+## Usage
+Either via the contact summary actions **"Set to Inactive"** or the API function: **Contact.setinactive**

@@ -21,20 +21,12 @@
  */
 class CRM_Contactinactive_Form_Set extends CRM_Contact_Form_Task {
 
-  protected $_settings;
-  protected $_activityTypeNames = array();
-
   public function preProcess() {
     parent::preProcess();
 
-    // Needs to be here as from is build before default values are set
-    $this->_settings = CRM_Contactinactive_Utils::getSettings();
-    if (!$this->_settings) $this->_settings = array();
-    if (!empty($this->_settings['activityTypeNames'])) {
-      // Assign activity names so we can display confirmation to user.
-      $this->_activityTypeNames = explode(',', $this->_settings['activityTypeNames']);
-      $this->assign('activityTypeNames', implode(', ', $this->_activityTypeNames));
-    }
+    // Get array of activityTypeNames
+    $activityTypeNames = CRM_Contactinactive_Utils::getActivityTypeNames();
+    $this->assign('activityTypeNames', implode(', ', $activityTypeNames));
 
     if (empty($this->_contactIds)) {
       // For the case of single contact (contact action)
@@ -55,48 +47,9 @@ class CRM_Contactinactive_Form_Set extends CRM_Contact_Form_Task {
 
   public function postProcess() {
     foreach ($this->_contactIds as $contactId) {
-      // Set all privacy options
-      $this->setPrivacyOptions($contactId);
-      // Cancel activities of type
-      foreach ($this->_activityTypeNames as $activityTypeName) {
-        $this->cancelActivities($contactId, $activityTypeName);
-      }
+      CRM_Contactinactive_Set::setInactive($contactId);
     }
     parent::postProcess();
   }
 
-  /**
-   * Set all privacy options to enabled
-   * @param $contactId
-   */
-  public function setPrivacyOptions($contactId) {
-    $result = civicrm_api3('Contact', 'create', array(
-      'id' => $contactId,
-      'do_not_email' => 1,
-      'do_not_phone' => 1,
-      'do_not_mail' => 1,
-      'do_not_sms' => 1,
-      'do_not_trade' => 1,
-      'is_opt_out' => 1,
-    ));
-  }
-
-  /**
-   * Disable all activities of type $activityTypeName
-   * @param $contactId
-   */
-  public function cancelActivities($contactId, $activityTypeName) {
-    $callCenterActivityId = CRM_Core_PseudoConstant::getKey('CRM_Activity_BAO_Activity', 'activity_type_id', $activityTypeName);
-    $cancelledActivityStatus = CRM_Core_PseudoConstant::getKey('CRM_Activity_BAO_Activity', 'activity_status_id', 'Cancelled');
-
-    $sql = "
-UPDATE `civicrm_activity_contact` contact
-LEFT JOIN `civicrm_activity` activity
-ON contact.activity_id = activity.id
-SET activity.status_id = {$cancelledActivityStatus}
-WHERE activity_type_id = {$callCenterActivityId}
-  AND contact_id = {$contactId}
-    ";
-    CRM_Core_DAO::executeQuery($sql);
-  }
 }
